@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="5 - try-out-1:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/5___try_out_1_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="5 - try-out-1" />
+        </element>
+        <element id="directory" name="lib" />
+      </element>
+      <element id="javaee-facet-resources" facet="5 - try-out-1/web/Web" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="5 - try-out-1:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/5___try_out_1_war</output-path>
+    <root id="archive" name="5 - try-out-1_war.war">
+      <element id="artifact" artifact-name="5 - try-out-1:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib" />
+      </element>
+    </root>
+  </artifact>
+</component>
