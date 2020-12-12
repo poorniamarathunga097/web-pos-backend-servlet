@@ -42,7 +42,7 @@ public class ItemServlet extends HttpServlet {
                             "<td>"+ unitPrice +"</td>" +
                             "</tr>");
                 }
-                
+
                 connection.close();
                 out.println("</tbody></table>");
             } catch (ClassNotFoundException | SQLException e) {
