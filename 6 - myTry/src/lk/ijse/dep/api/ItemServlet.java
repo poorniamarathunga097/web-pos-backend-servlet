@@ -56,6 +56,5 @@ public class ItemServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-
     }
 }
