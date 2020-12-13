@@ -21,33 +21,27 @@ public class CustomerServlet extends HttpServlet {
 
         resp.addHeader("Access-Control-Allow-Origin","http://localhost:3000");
 
-        resp.setContentType("text/html");
+        resp.setContentType("application/xml");
         try (PrintWriter out = resp.getWriter()) {
-            out.println("<div>");
-            out.println("<h1>Customer Servlet</h1>");
             try {
                 Connection connection = cp.getConnection();
                 Statement stm = connection.createStatement();
                 ResultSet rs = stm.executeQuery("SELECT * FROM customer");
-                out.println("<table style='border-collapse: collapse; border: 1px solid black;'>" +
-                        "<thead>" +
-                        "<td>ID</td>" +
-                        "<td>NAME</td>" +
-                        "<td>ADDRESS</td>" +
-                        "</thead><tbody>");
+                out.println("<customers>");
+
                 while (rs.next()) {
                     String id = rs.getString(1);
                     String name = rs.getString(2);
                     String address = rs.getString(3);
-                    out.println("<tr>" +
-                            "<td>"+ id +"</td>" +
-                            "<td>"+ name +"</td>" +
-                            "<td>"+ address +"</td>" +
-                            "</tr>");
+                    out.println("<customer>" +
+                            "<id>"+ id +"</id>" +
+                            "<name>"+ name +"</name>" +
+                            "<address>"+ address +"</address>" +
+                            "</customer>");
                 }
+                out.println("</customers>");
                 connection.close();
-                out.println("</tbody></table>");
-                out.println("</div>");
+
 
             } catch (SQLException e) {
                 e.printStackTrace();
