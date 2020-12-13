@@ -9,6 +9,7 @@
         <element id="directory" name="lib">
           <element id="library" level="project" name="mysql-connector-java-8.0.21" />
           <element id="library" level="project" name="commons-dbcp" />
+          <element id="library" level="project" name="commons-logging-1.2-javadoc" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="6 - myTry/web/Web" />

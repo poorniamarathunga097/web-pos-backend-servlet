@@ -1,5 +1,7 @@
 package lk.ijse.dep.api;
 
+import org.apache.commons.dbcp2.BasicDataSource;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,12 +16,17 @@ public class CustomerServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        BasicDataSource cp = (BasicDataSource) getServletContext().getAttribute("cp");
+
+        resp.addHeader("Access-Control-Allow-Origin","http://localhost:3000");
+
         resp.setContentType("text/html");
         try (PrintWriter out = resp.getWriter()) {
+            out.println("<div>");
             out.println("<h1>Customer Servlet</h1>");
             try {
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dep6", "root", "1234");
+                Connection connection = cp.getConnection();
                 Statement stm = connection.createStatement();
                 ResultSet rs = stm.executeQuery("SELECT * FROM customer");
                 out.println("<table style='border-collapse: collapse; border: 1px solid black;'>" +
@@ -40,8 +47,9 @@ public class CustomerServlet extends HttpServlet {
                 }
                 connection.close();
                 out.println("</tbody></table>");
+                out.println("</div>");
 
-            } catch (ClassNotFoundException | SQLException e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
