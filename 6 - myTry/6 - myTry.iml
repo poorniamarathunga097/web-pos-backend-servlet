@@ -23,5 +23,6 @@
     <orderEntry type="library" name="mysql-connector-java-8.0.21" level="project" />
     <orderEntry type="library" name="commons-dbcp" level="project" />
     <orderEntry type="library" name="commons-logging-1.2-javadoc" level="project" />
+    <orderEntry type="library" name="jakarta.json-2.0.0" level="project" />
   </component>
 </module>

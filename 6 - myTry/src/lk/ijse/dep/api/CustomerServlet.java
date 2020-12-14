@@ -21,25 +21,27 @@ public class CustomerServlet extends HttpServlet {
 
         resp.addHeader("Access-Control-Allow-Origin","http://localhost:3000");
 
-        resp.setContentType("application/xml");
+        resp.setContentType("application/json");
         try (PrintWriter out = resp.getWriter()) {
             try {
                 Connection connection = cp.getConnection();
                 Statement stm = connection.createStatement();
                 ResultSet rs = stm.executeQuery("SELECT * FROM customer");
-                out.println("<customers>");
+                String json = ("[");
 
                 while (rs.next()) {
                     String id = rs.getString(1);
                     String name = rs.getString(2);
                     String address = rs.getString(3);
-                    out.println("<customer>" +
-                            "<id>"+ id +"</id>" +
-                            "<name>"+ name +"</name>" +
-                            "<address>"+ address +"</address>" +
-                            "</customer>");
+                    json+=("{" +
+                            "\"id\":\"" + id + "\"," +
+                            "\"name\":\"" + name + "\"," +
+                            "\"address\":\"" + address + "\"" +
+                            "},");
                 }
-                out.println("</customers>");
+                json = json.substring(0,json.length()-1);
+                json+=("]");
+                out.println(json);
                 connection.close();
 
 

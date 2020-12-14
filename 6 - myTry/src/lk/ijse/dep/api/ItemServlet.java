@@ -22,28 +22,29 @@ public class ItemServlet extends HttpServlet {
         BasicDataSource cp = (BasicDataSource) getServletContext().getAttribute("cp");
         resp.addHeader("Access-Control-Allow-Origin","http://localhost:3000");
 
-        resp.setContentType("application/xml");
+        resp.setContentType("application/json");
         try (PrintWriter out = resp.getWriter()) {
             try {
                 Connection connection = cp.getConnection();
                 Statement stm = connection.createStatement();
                 ResultSet rs = stm.executeQuery("SELECT  * FROM items");
-                out.println("<items>");
+                String json = ("[");
                 while (rs.next()) {
                     String code = rs.getString(1);
                     String description = rs.getString(2);
                     int qtyOnHand = rs.getInt(3);
                     BigDecimal unitPrice = rs.getBigDecimal(4);
-                    out.println("<item>" +
-                            "<code>"+ code +"</code>" +
-                            "<description>"+ description +"</description>" +
-                            "<qtyOnHand>"+ qtyOnHand +"</qtyOnHand>" +
-                            "<price>"+ unitPrice +"</price>" +
-                            "</item>");
+                    json+=("{" +
+                            "\"code\":\"" + code + "\"," +
+                            "\"description\":\"" + description + "\"," +
+                            "\"qtyOnHand\":\"" + qtyOnHand + "\"," +
+                            "\"unitPrice\":\"" + unitPrice + "\"" +
+                            "},");
                 }
-
+                json = json.substring(0,json.length()-1);
+                json+=("]");
+                out.println(json);
                 connection.close();
-                out.println("</items>");
             } catch (SQLException e) {
                 e.printStackTrace();
             }

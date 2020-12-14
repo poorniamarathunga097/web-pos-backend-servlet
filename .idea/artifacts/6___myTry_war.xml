@@ -8,6 +8,7 @@
           <element id="library" level="project" name="mysql-connector-java-8.0.21" />
           <element id="library" level="project" name="commons-dbcp" />
           <element id="library" level="project" name="commons-logging-1.2-javadoc" />
+          <element id="library" level="project" name="jakarta.json-2.0.0" />
         </element>
       </element>
     </root>

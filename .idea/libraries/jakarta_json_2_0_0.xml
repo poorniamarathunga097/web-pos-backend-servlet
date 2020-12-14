@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="jakarta.json-2.0.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/yasson/jakarta.json-2.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/yasson/jakarta.json-api-2.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/yasson/jakarta.json.bind-api-2.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/yasson/yasson-2.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
