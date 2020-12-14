@@ -2,6 +2,7 @@ package lk.ijse.dep.api;
 
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
+import lk.ijse.dep.model.Customer;
 import lk.ijse.dep.model.Item;
 import org.apache.commons.dbcp2.BasicDataSource;
 
@@ -20,9 +21,42 @@ import java.util.List;
 
 @WebServlet(name = "ItemServlet", urlPatterns = "/items")
 public class ItemServlet extends HttpServlet {
+
+    @Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.addHeader("Access-Control-Allow-Origin","http://localhost:3000");
+        resp.addHeader("Access-Control-Allow-Headers","Content-Type");
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Jsonb jsonb = JsonbBuilder.create();
+        Item item = jsonb.fromJson(req.getReader(), Item.class);
 
+        resp.addHeader("Access-Control-Allow-Origin","http://localhost:3000");
+
+        resp.setContentType("application/json");
+        BasicDataSource cp = (BasicDataSource) getServletContext().getAttribute("cp");
+        try {
+            Connection connection = cp.getConnection();
+            PreparedStatement pst = connection.prepareStatement("INSERT INTO items VALUES (?,?,?,?)");
+            pst.setString(1,item.getCode());
+            pst.setString(2,item.getDescription());
+            pst.setString(3, String.valueOf(item.getQtyOnHand()));
+            pst.setString(4, String.valueOf(item.getPrice()));
+            boolean success = pst.executeUpdate()>0;
+
+            if(success){
+                resp.getWriter().println(jsonb.toJson(true));
+            }else{
+                resp.getWriter().println(jsonb.toJson(false));
+            }
+            connection.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            resp.getWriter().println(jsonb.toJson(false));
+        }
     }
 
     @Override
