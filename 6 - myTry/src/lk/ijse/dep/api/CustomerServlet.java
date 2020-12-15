@@ -50,7 +50,7 @@ public class CustomerServlet extends HttpServlet {
                 return;
             }
 
-            PreparedStatement pst = connection.prepareStatement("INSERT INTO customer VALUES (?,?,?)");
+            PreparedStatement pst = connection.prepareStatement("INSERT INTO Customer VALUES (?,?,?)");
             pst.setString(1, customer.getId());
             pst.setString(2, customer.getName());
             pst.setString(3, customer.getAddress());
@@ -93,10 +93,10 @@ public class CustomerServlet extends HttpServlet {
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
                 return;
             }
-            PreparedStatement pst = connection.prepareStatement("SELECT * FROM customer WHERE c_id=?");
+            PreparedStatement pst = connection.prepareStatement("SELECT * FROM Customer WHERE cid=?");
             pst.setObject(1,id);
             if(pst.executeQuery().next()) {
-                pst = connection.prepareStatement("UPDATE customer SET c_name=?, c_address=? WHERE c_id=?");
+                pst = connection.prepareStatement("UPDATE Customer SET c_name=?, c_address=? WHERE cid=?");
                 pst.setObject(1, customer.getName());
                 pst.setObject(2, customer.getAddress());
                 pst.setObject(3, id);
@@ -127,7 +127,7 @@ public class CustomerServlet extends HttpServlet {
         resp.setContentType("application/json");
         try (Connection connection = cp.getConnection()) {
             PrintWriter out = resp.getWriter();
-            PreparedStatement pst = connection.prepareStatement("SELECT * FROM customer" + ((id != null) ? " WHERE c_id=?" : ""));
+            PreparedStatement pst = connection.prepareStatement("SELECT * FROM Customer" + ((id != null) ? " WHERE cid=?" : ""));
             if (id != null) {
                 pst.setObject(1, id);
             }
@@ -168,10 +168,10 @@ public class CustomerServlet extends HttpServlet {
         BasicDataSource cp = (BasicDataSource) getServletContext().getAttribute("cp");
         try (Connection connection = cp.getConnection();){
 
-            PreparedStatement pst = connection.prepareStatement("SELECT * FROM customer WHERE c_id=?");
+            PreparedStatement pst = connection.prepareStatement("SELECT * FROM Customer WHERE cid=?");
             pst.setObject(1,id);
             if(pst.executeQuery().next()) {
-                pst = connection.prepareStatement("DELETE FROM customer WHERE c_id=?");
+                pst = connection.prepareStatement("DELETE FROM Customer WHERE cid=?");
                 pst.setObject(1, id);
                 boolean success = pst.executeUpdate() > 0;
                 if (success) {

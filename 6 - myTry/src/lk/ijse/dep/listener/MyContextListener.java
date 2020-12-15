@@ -16,7 +16,7 @@ public class MyContextListener implements ServletContextListener {
         BasicDataSource bds = new BasicDataSource();
         bds.setUsername("root");
         bds.setPassword("1234");
-        bds.setUrl("jdbc:mysql://localhost:3306/dep6");
+        bds.setUrl("jdbc:mysql://localhost:3306/pos");
         bds.setDriverClassName("com.mysql.jdbc.Driver");
         bds.setInitialSize(5);
         bds.setMaxTotal(5);
