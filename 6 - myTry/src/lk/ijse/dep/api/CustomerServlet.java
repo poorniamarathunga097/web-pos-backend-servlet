@@ -27,6 +27,8 @@ public class CustomerServlet extends HttpServlet {
     protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.addHeader("Access-Control-Allow-Origin", "http://localhost:3000");
         resp.addHeader("Access-Control-Allow-Headers", "Content-Type");
+        resp.addHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+
     }
 
     @Override
